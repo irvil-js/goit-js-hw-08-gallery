@@ -9,17 +9,28 @@ const ulRef = document.querySelector('.js-gallery');
 
 const imgMarkup = gallery => {
     return gallery.map(e => {
-        let listEl = document.createElement('li');
-        let imgEl = document.createElement('img');
+        const listEl = document.createElement('li');
+        listEl.classList.add('gallery__item');
+
+        const aEl = document.createElement('a');
+        aEl.classList.add('gallery__link');
+        aEl.href = e.original;
+
+
+        const imgEl = document.createElement('img');
+        imgEl.classList.add('gallery__image');
         imgEl.src = e.preview;
         imgEl.alt = e.description;
-        listEl.appendChild(imgEl)
+        imgEl.dataset.source = e.original;
+
+        aEl.appendChild(imgEl);
+        listEl.appendChild(aEl);
 
         return listEl;
     });
 };
 
-let elements = imgMarkup(gallery);
+const elements = imgMarkup(gallery);
 
 ulRef.append(...elements);
 
