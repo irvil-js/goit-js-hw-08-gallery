@@ -3,12 +3,10 @@ import gallery from './gallery-items.js';
 const ulRef = document.querySelector('.js-gallery');
 const modal = document.querySelector('.js-lightbox');
 const openModalImg = document.querySelector('.lightbox__image');
-const modalCloseBtn = document.querySelector('button[data-action="close-lightbox"]'), //кнопка закрытия модального окна
-
+const modalCloseBtn = document.querySelector('button[data-action="close-lightbox"]'); //кнопка закрытия модального окна
+const overlayClose = document.querySelector('.lightbox__overlay');
 
 // Создание и рендер разметки по массиву данных и предоставленному шаблону.
-
-
 
 
 const imgMarkup = gallery => {
@@ -38,7 +36,7 @@ const elements = imgMarkup(gallery);
 
 ulRef.append(...elements);
 
-// console.log(ulRef);
+console.log(ulRef);
 
 
 // Реализация делегирования на галерее ul.js-gallery и получение url большого изображения.
@@ -62,14 +60,19 @@ function onOpenModal(evt) {
 
 modalCloseBtn.addEventListener('click', onCloseModal);
 
-function onCloseModal(event) {
-    if (event.currentTarget === event.target) {
-        onCloseModal();
-    }
-};
 
 function onCloseModal() {
     modal.classList.remove('is-open');
     openModalImg.src = '';   //очстка от атрибута
 
-}
+};
+
+
+// закрытие по оверлэй
+overlayClose.addEventListener('click', onOverlayClick);
+
+function onOverlayClick(evt) {
+    if (evt.currentTarget === evt.target) {
+    onCloseModal();
+  }
+};
